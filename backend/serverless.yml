@@ -1,0 +1,48 @@
+service: shui-backend
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-north-1 # change if you need another region
+  environment:
+    MESSAGES_TABLE: ${self:service}-Messages-${sls:stage}
+  httpApi:
+    cors:
+      allowedOrigins:
+        - "*" # for exam simplicity; later we can set your S3 origin
+      allowedHeaders:
+        - Content-Type
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+
+functions:
+  listMessages:
+    handler: handlers/listMessages.handler
+    events:
+      - httpApi:
+          path: /messages
+          method: GET
+  createMessage:
+    handler: handlers/createMessage.handler
+    events:
+      - httpApi:
+          path: /messages
+          method: POST
+
+resources:
+  Resources:
+    MessagesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.MESSAGES_TABLE}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
