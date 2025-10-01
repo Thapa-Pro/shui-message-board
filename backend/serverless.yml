@@ -1,23 +1,34 @@
 service: shui-backend
-frameworkVersion: "3"
+frameworkVersion: "4" # you have v4 globally
 
 provider:
   name: aws
   runtime: nodejs18.x
-  region: eu-north-1 # change if you need another region
+  region: eu-north-1
   environment:
     MESSAGES_TABLE: ${self:service}-Messages-${sls:stage}
+    USERS_TABLE: ${self:service}-Users-${sls:stage}
+    JWT_SECRET: super-secret-key # simple for exam; change in real projects
   httpApi:
     cors:
-      allowedOrigins:
-        - "*" # for exam simplicity; later we can set your S3 origin
-      allowedHeaders:
-        - Content-Type
-      allowedMethods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
+      allowedOrigins: ["*"]
+      allowedHeaders: [Content-Type, Authorization]
+      allowedMethods: [GET, POST, PUT, DELETE]
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:GetItem
+            - dynamodb:Scan
+            - dynamodb:Query
+          Resource:
+            - { "Fn::GetAtt": [MessagesTable, Arn] }
+            - { "Fn::Sub": "${MessagesTable.Arn}/index/*" }
+            - { "Fn::GetAtt": [UsersTable, Arn] }
 
 functions:
   listMessages:
@@ -26,11 +37,47 @@ functions:
       - httpApi:
           path: /messages
           method: GET
+
   createMessage:
     handler: handlers/createMessage.handler
     events:
       - httpApi:
           path: /messages
+          method: POST
+
+  updateMessage:
+    handler: handlers/updateMessage.handler
+    events:
+      - httpApi:
+          path: /messages/{id}
+          method: PUT
+
+  deleteMessage:
+    handler: handlers/deleteMessage.handler
+    events:
+      - httpApi:
+          path: /messages/{id}
+          method: DELETE
+
+  getMessagesByUser:
+    handler: handlers/getMessagesByUser.handler
+    events:
+      - httpApi:
+          path: /users/{username}/messages
+          method: GET
+
+  register:
+    handler: handlers/register.handler
+    events:
+      - httpApi:
+          path: /auth/register
+          method: POST
+
+  login:
+    handler: handlers/login.handler
+    events:
+      - httpApi:
+          path: /auth/login
           method: POST
 
 resources:
@@ -41,8 +88,32 @@ resources:
         TableName: ${self:provider.environment.MESSAGES_TABLE}
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: id # PK
             AttributeType: S
+          - AttributeName: username # GSI PK
+            AttributeType: S
+          - AttributeName: createdAt # GSI SK
+            AttributeType: N
         KeySchema:
           - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: byUsername
+            KeySchema:
+              - AttributeName: username
+                KeyType: HASH
+              - AttributeName: createdAt
+                KeyType: RANGE
+            Projection: { ProjectionType: ALL }
+
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.USERS_TABLE}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: username
+            AttributeType: S
+        KeySchema:
+          - AttributeName: username
             KeyType: HASH
