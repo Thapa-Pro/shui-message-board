@@ -1,5 +1,5 @@
 service: shui-backend
-frameworkVersion: "4" # you have v4 globally
+frameworkVersion: "4"
 
 provider:
   name: aws

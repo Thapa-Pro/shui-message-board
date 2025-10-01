@@ -13,12 +13,18 @@ export default function MessageCard({ msg, onEdit, onDelete }) {
         <span className="dot">•</span>
         <span className="date">{date}</span>
       </div>
-      {onEdit && onDelete && (
+      {(onEdit || onDelete) && (
         <div className="actions">
-          <button onClick={() => onEdit(msg)}>Edit</button>
-          <button onClick={() => onDelete(msg)} className="danger">
-            Delete
-          </button>
+          {onEdit && (
+            <button className="btn btn-warn" onClick={() => onEdit(msg)}>
+              Edit
+            </button>
+          )}
+          {onDelete && (
+            <button className="btn btn-danger" onClick={() => onDelete(msg)}>
+              Delete
+            </button>
+          )}
         </div>
       )}
     </div>

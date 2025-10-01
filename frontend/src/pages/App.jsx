@@ -9,30 +9,31 @@ export default function App() {
 
   function logout() {
     clearAuth();
-    nav(0); // refresh page
+    nav(0);
   }
 
   return (
     <div className="container">
       <header className="topbar">
-        <h1>
-          <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
+        <h1 className="appTitle">
+          <Link to="/" className="titleLink">
             Shui – Message Board
           </Link>
         </h1>
-        <div style={{ float: "right", marginTop: 4 }}>
+        <div className="authbar">
           {logged ? (
             <>
               <Link to={`/user/${encodeURIComponent(name)}`} className="user">
                 @{name}
-              </Link>{" "}
-              <button onClick={logout} style={{ marginLeft: 8 }}>
+              </Link>
+              <button className="btn btn-danger sm" onClick={logout}>
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link to="/login">Login</Link> |{" "}
+              <Link to="/login">Login</Link>
+              <span> | </span>
               <Link to="/register">Register</Link>
             </>
           )}

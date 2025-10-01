@@ -1,44 +1,77 @@
-/* Mobile-first, simple, clean */
-
+/* --- base --- */
 * {
   box-sizing: border-box;
 }
 body {
   margin: 0;
   font-family: system-ui, Arial, sans-serif;
-  background: #0f1f3a;
-  color: #fff;
+  background: #ffffff; /* sides white */
+  color: #111; /* default text if anything leaks outside container */
 }
 
-/* phone canvas */
+/* phone canvas (dark app area) */
 .container {
   max-width: 420px;
   margin: 0 auto;
   padding: 16px;
+  background: #0f1f3a; /* dark area of the app */
+  color: #fff; /* text inside app is white */
+  min-height: 100vh;
 }
 
+/* --- top bar --- */
 .topbar {
-  padding: 12px 0;
+  padding: 8px 0 10px 0;
   border-bottom: 1px solid #26406e;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
-.topbar h1 {
-  font-size: 20px;
+.appTitle {
   margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+.titleLink {
+  color: #fff;
+  text-decoration: none;
+  display: block;
 }
 
+/* username + logout below the line */
+.authbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px; /* a little lower than the blue line */
+}
+
+/* --- feed header (title + sort) --- */
 .feedHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   margin: 12px 0;
 }
-.row {
+.feedTitle {
+  margin: 0;
+  font-size: 24px;
+}
+.sortGroup {
   display: inline-flex;
   gap: 8px;
   align-items: center;
 }
+.sortGroup select {
+  min-width: 160px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #335;
+  background: #0e1b34;
+  color: #fff;
+}
 
+/* --- cards & layout --- */
 .list {
   display: grid;
   gap: 12px;
@@ -56,17 +89,65 @@ body {
 }
 .meta {
   font-size: 12px;
-  opacity: 0.85;
+  opacity: 0.9;
   display: flex;
   gap: 6px;
+  align-items: center;
 }
 .user {
+  color: #fff;
+  text-decoration: none;
   font-weight: 600;
+}
+.user:hover {
+  text-decoration: underline;
 }
 .dot {
   opacity: 0.5;
 }
 
+/* --- buttons --- */
+.btn {
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+.btn:hover {
+  filter: brightness(1.07);
+}
+.btn-warn {
+  background: #f0c04a;
+  color: #1a1a1a;
+} /* Edit = yellowish */
+.btn-danger {
+  background: #d9534f;
+  color: #fff;
+} /* Delete & Logout = red */
+.btn-success {
+  background: #35c88a;
+  color: #0b1f16;
+} /* Publish = light green */
+
+.sm {
+  font-size: 13px;
+  padding: 6px 10px;
+} /* smaller variant */
+.full {
+  width: 100%;
+} /* full-width for Publish */
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+.actions .btn {
+  width: auto;
+} /* smaller/narrower action buttons */
+
+/* --- form box --- */
 .box {
   background: #15294f;
   border-radius: 12px;
@@ -75,8 +156,7 @@ body {
   gap: 8px;
 }
 input,
-textarea,
-select {
+textarea {
   width: 100%;
   padding: 10px;
   border-radius: 10px;
@@ -85,36 +165,8 @@ select {
   color: #fff;
   font-size: 15px;
 }
-button {
-  width: 100%;
-  padding: 12px;
-  border: 0;
-  border-radius: 10px;
-  background: #e24c43;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-}
-button:hover {
-  filter: brightness(1.07);
-}
 
+/* misc */
 .error {
   color: #ffb3b3;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-}
-.actions .danger {
-  background: #b3443a;
-}
-.user {
-  color: #fff;
-  text-decoration: none;
-}
-.user:hover {
-  text-decoration: underline;
 }

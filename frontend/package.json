@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host --port 5173",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview --host",
+    "start": "vite --host --port 5173"
   },
   "dependencies": {
     "react": "^18.3.1",
