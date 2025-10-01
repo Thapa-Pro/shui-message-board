@@ -1,7 +1,7 @@
 # shui-message-board
 
 Jag har byggt både frontend (React/Vite) och backend (Serverless på AWS).
-Koden är medvetet enkel och tydlig
+Koden är medvetet enkel och tydlig        
 🔗 Länkar
 
 App (S3):
@@ -31,4 +31,3 @@ Meddelande-modell:
 ## 🗺️ Projektkarta (bild)
 
 ![Projektstruktur för Shui – Message Board](./Projektstruktur-shui-message-board.jpg)
-_Enkel översikt över mappar och filer i projektet._
