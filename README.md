@@ -32,14 +32,20 @@ Meddelande-modell:
 API-bas (API Gateway):
 https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com
 
-GET    {API_BASE}/messages  
-POST   {API_BASE}/messages  
-PUT    {API_BASE}/messages/{id}  
-DELETE {API_BASE}/messages/{id}  
-GET    {API_BASE}/users/{username}/messages  
+endpoints:
 
-POST   {API_BASE}/auth/register  
-POST   {API_BASE}/auth/login
+  GET - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/messages
+  
+  POST - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/messages
+  
+  PUT - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/messages/{id}
+  
+  DELETE - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/messages/{id}
+  
+  GET - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/users/{username}/messages
+  
+  POST - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/auth/register
+  
+  POST - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/auth/login
 
 
-![Projektstruktur för Shui – Message Board](./endPoints.jpg)
