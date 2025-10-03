@@ -6,6 +6,15 @@ Koden är medvetet enkel och tydlig.
 
 App (S3):
 http://shui-message-board-thapa.s3-website.eu-north-1.amazonaws.com
+### 👤 Demokonton (för snabb test)
+
+| Användarnamn | Lösenord |
+|--------------|----------|
+| Tom Hanks    | Tom123   |
+| Jesper       | Jesper123|
+| Thapa        | Thapa123 |
+| Brad         | Brad123 |
+
 
 🎯 Vad kan appen göra?
 
@@ -33,6 +42,7 @@ API-bas (API Gateway):
 https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com
 
 endpoints:
+Username
 
   GET - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/messages
   
