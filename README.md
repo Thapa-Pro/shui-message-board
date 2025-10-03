@@ -6,9 +6,15 @@ Koden är medvetet enkel och tydlig.
 
 App (S3):
 http://shui-message-board-thapa.s3-website.eu-north-1.amazonaws.com
+### 👤 Demokonton (för snabb test)
 
-API-bas (API Gateway):
-https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com
+| Användarnamn | Lösenord |
+|--------------|----------|
+| Tom Hanks    | Tom123   |
+| Jesper       | Jesper123|
+| Thapa        | Thapa123 |
+| Brad         | Brad123 |
+
 
 🎯 Vad kan appen göra?
 
@@ -31,3 +37,25 @@ Meddelande-modell:
 ## Projektkarta (bild)
 
 ![Projektstruktur för Shui – Message Board](./Projektstruktur-shui-message-board.jpg)
+
+API-bas (API Gateway):
+https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com
+
+endpoints:
+Username
+
+  GET - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/messages
+  
+  POST - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/messages
+  
+  PUT - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/messages/{id}
+  
+  DELETE - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/messages/{id}
+  
+  GET - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/users/{username}/messages
+  
+  POST - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/auth/register
+  
+  POST - https://m991wjpm2a.execute-api.eu-north-1.amazonaws.com/auth/login
+
+
